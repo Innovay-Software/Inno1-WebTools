@@ -27,7 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "build/types/**/*.ts",
-    "src/scripts/sitemap.mjs"
+    "src/scripts/sitemap.mjs",
+    "src/utils/MinisearchUtiltsx"
   ],
   "exclude": ["node_modules", "src/app/dev"]
 }

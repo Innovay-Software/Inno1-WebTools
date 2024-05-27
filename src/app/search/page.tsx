@@ -2,23 +2,16 @@
 
 import { useEffect, useState } from "react";
 import MiniSearch from "minisearch";
-import searchConfig from "@/utils/MinisearchIndex";
+import miniSearchUtil from "@/utils/MinisearchUtil";
 import { DefaultInput } from "@/components/fundamental/InputField";
 import Link from "next/link";
 
-const miniSearch = new MiniSearch({
-  fields: ["title", "text"],
-  storeFields: ["route", "title", "text"],
-});
-
 function SearchPage() {
-  const documents = searchConfig.pageIndices;
+  const miniSearch = miniSearchUtil.getMiniSearch();
   const [searchContent, setSearchContent] = useState("");
   const [searchResult, setSearchResult] = useState<any[]>([]);
 
-  useEffect(() => {
-    miniSearch.addAll(documents);
-  }, []);
+  useEffect(() => {}, []);
 
   const onSearchContentUpdate = (val: string) => {
     setSearchContent(val);
@@ -32,6 +25,7 @@ function SearchPage() {
         title="Search for tools"
         value={searchContent}
         onChange={onSearchContentUpdate}
+        autofocus
       />
       <div className="font-bold">
         Found {searchResult.length} Tool{searchResult.length <= 1 ? "" : "s"}:
