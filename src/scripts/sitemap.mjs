@@ -1,5 +1,6 @@
 import { writeFile } from "fs/promises";
 import { globby } from "globby";
+import { config } from "dotenv";
 
 const excludes = ['/about-us/', '/dev/', '/privacy-policy/'];
 
@@ -21,8 +22,10 @@ const collectPaths = async () => {
 };
 
 const createSitemap = async (routes) => {
+  config();
+  const date = new Date().toISOString().slice(0, 10);
   const DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN
-  const urls = routes.map((route) => `${DOMAIN}${route}`);
+  const urls = routes.map((route) => `https://${DOMAIN}${route}`);
   console.log(`Found ${urls.length} urls:`);
   console.log(urls);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -32,6 +35,7 @@ const createSitemap = async (routes) => {
           return `
   <url>
     <loc>${url}</loc>
+    <lastmod>${date}</lastmod>
   </url>`;
         })
         .join("")}
