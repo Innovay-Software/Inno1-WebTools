@@ -1,0 +1,13 @@
+# docker-compose -f docker-compose-inno_15dngfront_web.yml up -d --no-recreate
+# docker-compose -f docker-compose-inno_15dngfront_web.yml down
+
+services:
+  web:
+    container_name: innosoft_inno1-webtools
+    image: node:lts-iron
+    volumes:
+      - ./app:/var/www/html
+    ports:
+      - "15191:3000"
+    command: >
+      sh -c "cd /var/www/html && rm -r build && npm install && npm run build && npm run start"
